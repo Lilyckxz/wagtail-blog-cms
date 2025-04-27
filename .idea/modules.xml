@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/wagtail-cms-fresh.iml" filepath="$PROJECT_DIR$/.idea/wagtail-cms-fresh.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/wagtail-blog-cms.iml" filepath="$PROJECT_DIR$/.idea/wagtail-blog-cms.iml" />
     </modules>
   </component>
 </project>

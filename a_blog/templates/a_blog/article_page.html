@@ -1,34 +1,48 @@
 {% extends 'layouts/blank.html' %}
 
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block class %}article{% endblock %}
 
-{% block content %} 
+{% block content %}
 
 <div class="max-w-4xl mx-auto px-8 py-24">
-    <h1>Title</h1>
-    <a href="" class="flex items-center gap-1 mb-2">
-        <img class="h-8 w-8 rounded-full object-cover" src="https://img.icons8.com/small/96/A9A9A9/happy.png" alt="Avatar">
-        Pete
+    <h1>{{ page.title }}</h1>
+    <a href="{% url 'profile' page.owner %}" class="flex items-center gap-1 mb-2">
+        <img class="h-8 w-8 rounded-full object-cover" src="{{ page.owner.profile.avatar }}" alt="Avatar">
+        {{ page.owner.profile.name }}
     </a>
-    <p class="text-sm text-neutral-500">Jan. 1, 2025</p>
-    <p class="text-2xl font-serif italic text-neutral-800">This is the Intro</p>
+    <p class="text-sm text-neutral-500">{{ page.data }}</p>
+    <p class="text-2xl font-serif italic text-neutral-800">{{ page.intro }}</p>
 
     <div class="mb-8">
         <figure>
-            <img class="w-full" src="https://res.cloudinary.com/dpuzdancn/image/upload/f_auto,q_auto/v1/static/rqjdfehtdc0xoj5jpmmv">
+            {% image page.image original class="w-full" %}
         </figure>
-        
+
+        {% if page.caption %}
         <figcaption class="text-sm text-neutral-500 text-center mt-2 mb-4">
-            Image Caption
+            {{ page.caption }}
         </figcaption>
+        {% endif %}
     </div>
 
-    <p>This is the body</p>
+    <p>{{ page.body|richtext }}</p>
+
+ <div class="flex gap-2 pt-6">
+    {% if page.tags %}
+        {% for tag in page.tags.all %}
+            <a href="{{ page.get_parent.url }}?tag={{ tag }}" class="border rounded-full border-gray-400 px-3 py-2" >
+             {{ tag }}
+            </a>
+
+
+        {% endfor %}
+    {% endif %}
+    </div>  
 
     <div class="mt-4 inline-block">
-        <a href="" class="underline">Return to blog</a>
+        <a href="{{ page.get_parent.url }}" class="underline">Return to blog</a>
     </div>
 
 </div>
