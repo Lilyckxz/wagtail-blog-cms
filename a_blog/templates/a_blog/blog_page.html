@@ -1,12 +1,12 @@
 {% extends 'layouts/blank.html' %}
-
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block class %}blog bg-black text-white{% endblock %}
 
 {% block content %}
 
 <div class="max-w-[1600px] mx-auto px-8 py-24">
+
 
     <div class="flex justify-center pb-6">
         <form action="{% url 'article_search' %}" method="get" class="relative w-full lg:w-2/3">
@@ -46,12 +46,14 @@
                     <p class="text-sm text-neutral-500">{{ article.date }}</p>
                     <figure class="mb-4">
                         <img class="w-full rounded-lg" src="{{ article.image.url }}" alt="{{ article.title }}">
+
                     </figure>
                     <span class="hover:underline">Read more</span>
                 </div>
             </a>
         </article>
         {% endfor %}
+
     </div>
     {% else %}
     <div class="text-center text-neutral-400">
@@ -62,3 +64,4 @@
 </div>
 
 {% endblock content %}
+

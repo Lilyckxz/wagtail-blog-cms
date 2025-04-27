@@ -1,4 +1,5 @@
 from django.shortcuts import render
+
 from .models import ArticlePage
 
 # Create your views here.
@@ -14,3 +15,4 @@ def article_search(request):
         'search_query': search_query,
     }
     return render(request, 'a_blog/blog_page.html', context)
+
