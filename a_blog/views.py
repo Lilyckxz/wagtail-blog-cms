@@ -1,7 +1,10 @@
-from django.shortcuts import render
-
+from django.shortcuts import render,redirect
+from operator import attrgetter
 from .models import ArticlePage
 
+
+def home_view(request):
+    return redierct("/blog")
 # Create your views here.
 def article_search(request):
     search_query = request.GET.get('query','').strip()

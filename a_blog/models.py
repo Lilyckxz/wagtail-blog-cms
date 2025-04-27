@@ -40,7 +40,9 @@ class ArticlePage(Page):
     caption = models.CharField(blank=True, max_length=80)
     
     tags = ClusterTaggableManager(through='ArticleTag', blank=True)
-    
+
+
+
     views = models.PositiveIntegerField(default=0, editable=False)
     
     def increment_view_count(self):
