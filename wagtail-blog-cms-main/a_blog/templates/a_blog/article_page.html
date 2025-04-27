@@ -29,6 +29,18 @@
 
     <p>{{ page.body|richtext }}</p>
 
+ <div class="flex gap-2 pt-6">
+    {% if page.tags %}
+        {% for tag in page.tags.all %}
+            <a href="{{ page.get_parent.url }}?tag={{ tag }}" class="border rounded-full border-gray-400 px-3 py-2" >
+             {{ tag }}
+            </a>
+
+
+        {% endfor %}
+    {% endif %}
+    </div>  
+
     <div class="mt-4 inline-block">
         <a href="{{ page.get_parent.url }}" class="underline">Return to blog</a>
     </div>
