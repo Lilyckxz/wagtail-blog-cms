@@ -1,0 +1,36 @@
+{% extends 'layouts/blank.html' %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block class %}blog bg-black text-white{% endblock %}
+
+{% block content %}
+
+<div class="max-w-[1600px] mx-auto px-8 py-24">
+
+
+    <div class="grid mt-8 gap-12 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+
+        {% for article in articles %}
+        <article class="relative rounded-2xl border border-gray-500 hover:border-gray-400 bg-neutral-900 ">
+            <a href="{% pageurl article %}" class="flex flex-col justify-between h-full p-4">
+                <div>
+                    <h2>{{ article.title }}</h2>
+                    <p>{{ article.specific.intro }}</p>
+                </div>
+                <div>
+                    <p class="text-sm text-neutral-500">{{ article.specific.date }}</p>
+                    <figure class="mb-4">
+                        {% image article.specific.image fill-314x166 class="w-full rounded-lg" %}
+                    </figure>
+                    <span class="hover:underline">Read more</span>
+                </div>
+            </a>
+        </article>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}
