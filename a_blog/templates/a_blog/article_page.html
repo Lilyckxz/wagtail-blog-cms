@@ -4,36 +4,47 @@
 
 {% block class %}article{% endblock %}
 
-{% block content %} 
+{% block content %}
 
 <div class="max-w-4xl mx-auto px-8 py-24">
+
+    {% if page.category %}
+    <div class="mb-6">
+        <a href="{{ page.get_parent.url }}?category={{ page.category.slug }}" 
+           class="inline-block border rounded-full border-gray-400 px-3 py-2 hover:bg-gray-100">
+            {{ page.category.name }}
+        </a>
+    </div>
+    {% endif %}
+
     <h1>{{ page.title }}</h1>
-    <a href="{%url 'profile' page.owner %}" class="flex items-center gap-1 mb-2">
+    <a href="{% url 'profile' page.owner %}" class="flex items-center gap-1 mb-2">
         <img class="h-8 w-8 rounded-full object-cover" src="{{ page.owner.profile.avatar }}" alt="Avatar">
         {{ page.owner.profile.name }}
     </a>
-<div class="flex justify-between items-center">
-    <p class="text-sm text-neutral-500">{{ page.date }}</p>
     
-<p class="flex items-center gap-4">
-        <a class="text-gray-500" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" 
-          target="_blank" rel="noopener noreferrer">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12.061C22 6.505 17.523 2 12 2S2 6.505 2 12.061c0 5.022 3.657 9.184 8.438 9.939v-7.03h-2.54V12.06h2.54V9.845c0-2.522 1.492-3.915 3.777-3.915 1.094 0 2.238.197 2.238.197v2.476h-1.26c-1.243 0-1.63.775-1.63 1.57v1.888h2.773l-.443 2.908h-2.33V22c4.78-.755 8.437-4.917 8.437-9.939"></path></svg>
-    </a>
-    
-    <a class="text-gray-500" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ page.title|urlencode }}%20-%20{{ page.intro|urlencode }}" 
-          target="_blank" rel="noopener noreferrer">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#242424" d="M13.346 10.932 18.88 4.5h-1.311l-4.805 5.585L8.926 4.5H4.5l5.803 8.446L4.5 19.69h1.311l5.074-5.898 4.053 5.898h4.426zM11.55 13.02l-.588-.84-4.678-6.693h2.014l3.776 5.4.588.842 4.907 7.02h-2.014z"></path></svg>
-    </a>
-    <span class="flex items-center text-gray-800 text-sm gap-1">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-        </svg>
-        <span>{{ page.views }}</span>
-    </span>
- </p>   
-</div>
+    <div class="flex justify-between items-center">
+        <p class="text-sm text-neutral-500">{{ page.date }}</p>
+        
+        <p class="flex items-center gap-4">
+            <a class="text-gray-500" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" 
+              target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12.061C22 6.505 17.523 2 12 2S2 6.505 2 12.061c0 5.022 3.657 9.184 8.438 9.939v-7.03h-2.54V12.06h2.54V9.845c0-2.522 1.492-3.915 3.777-3.915 1.094 0 2.238.197 2.238.197v2.476h-1.26c-1.243 0-1.63.775-1.63 1.57v1.888h2.773l-.443 2.908h-2.33V22c4.78-.755 8.437-4.917 8.437-9.939"></path></svg>
+            </a>
+            
+            <a class="text-gray-500" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ page.title|urlencode }}%20-%20{{ page.intro|urlencode }}" 
+              target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#242424" d="M13.346 10.932 18.88 4.5h-1.311l-4.805 5.585L8.926 4.5H4.5l5.803 8.446L4.5 19.69h1.311l5.074-5.898 4.053 5.898h4.426zM11.55 13.02l-.588-.84-4.678-6.693h2.014l3.776 5.4.588.842 4.907 7.02h-2.014z"></path></svg>
+            </a>
+            <span class="flex items-center text-gray-800 text-sm gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+                <span>{{ page.views }}</span>
+            </span>
+        </p>   
+    </div>
 
     <p class="text-2xl font-serif italic text-neutral-800">{{ page.intro }}</p>
 
@@ -50,23 +61,19 @@
 
     <p>{{ page.body|richtext }}</p>
 
-   <div class="flex gap-2 pt-6">
-    {% if page.tags %}
-        {% for tag in page.tags.all %}
-            <a href="{{ page.get_parent.url }}?tag={{ tag }}" class="border rounded-full border-gray-400 px-3 py-2" >
-             {{ tag }}
-            </a>
-
-
-        {% endfor %}
-    {% endif %}
+    <div class="flex gap-2 pt-6">
+        {% if page.tags %}
+            {% for tag in page.tags.all %}
+                <a href="{{ page.get_parent.url }}?tag={{ tag }}" class="border rounded-full border-gray-400 px-3 py-2" >
+                 {{ tag }}
+                </a>
+            {% endfor %}
+        {% endif %}
     </div>  
 
     <div class="mt-4 inline-block">
         <a href="{{ page.get_parent.url }}" class="underline">Return to blog</a>
     </div>
-
 </div>
-
 
 {% endblock %}

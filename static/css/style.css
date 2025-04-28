@@ -1,0 +1,38 @@
+/* static/css/main.css */
+.richtext h1 {
+    @apply text-3xl font-bold mb-4;
+}
+.richtext h2 {
+    @apply text-2xl font-semibold mb-3;
+}
+.richtext p {
+    @apply mb-4;
+}
+.richtext ul {
+    @apply list-disc pl-6 mb-4;
+}
+.richtext ol {
+    @apply list-decimal pl-6 mb-4;
+}
+.richtext code {
+    @apply bg-gray-800 text-gray-200 px-1 rounded;
+}
+.richtext pre {
+    @apply bg-gray-800 text-gray-200 p-4 rounded mb-4 overflow-x-auto;
+}
+.richtext iframe {
+    @apply w-full max-w-full h-auto;
+    aspect-ratio: 16 / 9;
+}
+.richtext table {
+    @apply w-full border-collapse border border-gray-500 mb-4;
+}
+.richtext th, .richtext td {
+    @apply border border-gray-500 px-4 py-2 text-left;
+}
+.richtext th {
+    @apply bg-gray-700 text-gray-200 font-semibold;
+}
+.richtext td {
+    @apply text-gray-300;
+}

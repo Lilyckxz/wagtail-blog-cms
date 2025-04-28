@@ -10,7 +10,7 @@
     <meta name="description" content="Django Template">
     <title>Project Title</title>
 
-       {% if page %}
+    {% if page %}
     <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
     <meta property="og:title" content="{{ page.title }}" />
@@ -20,14 +20,29 @@
     {% endif %}
 
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="https://unpkg.com/htmx.org@2.0.2"></script>
     {% django_htmx_script %}
     <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 添加 MathJax -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            chtml: {
+                scale: 1.1
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <style type="text/tailwindcss">
-        [x-cloak] { 
-            display: none !important; 
+        [x-cloak] {
+            display: none !important;
         }
         h1 {
             @apply text-4xl font-bold mb-4
@@ -35,7 +50,7 @@
         h2 {
             @apply text-xl font-bold mb-2
         }
-    	h3 {
+        h3 {
             @apply text-lg font-bold
         }
         p {
@@ -45,7 +60,7 @@
             @apply bg-indigo-600 text-white font-bold rounded-lg shadow-lg transition-all cursor-pointer
         }
         .button, button a, [type='submit'], [type='button'] {
-            @apply px-6 py-4 inline-block 
+            @apply px-6 py-4 inline-block
         }
         .button:hover, button:hover, [type='submit']:hover, [type='button']:hover {
             @apply bg-indigo-700
@@ -114,10 +129,33 @@
         .alert-success { @apply bg-green-500 }
         .alert-warning { @apply bg-red-500 }
         .alert-danger { @apply bg-red-500 }
-        .article iframe{
-            width: 100%;
-            height: 470px;
-            border-radius: 12px;
+        /* 添加 Markdown 内容样式 */
+        .richtext table {
+            @apply w-full border-collapse border border-gray-500 mb-4;
+        }
+        .richtext th, .richtext td {
+            @apply border border-gray-500 px-4 py-2 text-left;
+        }
+        .richtext th {
+            @apply bg-gray-700 text-gray-200 font-semibold;
+        }
+        .richtext td {
+            @apply text-gray-300;
+        }
+        .richtext .MathJax, .richtext .MJX_Assistive_MathML {
+            @apply my-2;
+        }
+        .richtext code {
+            @apply bg-gray-800 text-gray-200 px-1 rounded;
+        }
+        .richtext pre {
+            @apply bg-gray-800 text-gray-200 p-4 rounded mb-4 overflow-x-auto;
+        }
+        .richtext ul {
+            @apply list-disc pl-6 mb-4;
+        }
+        .richtext ol {
+            @apply list-decimal pl-6 mb-4;
         }
     </style>
 </head>
@@ -131,7 +169,35 @@
     {% block layout %}
     {% endblock %}
 
-    {% block javascript %}{% endblock %}
+    {% block javascript %}
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.querySelector('#id_markdown_input')) {
+                var simplemde = new SimpleMDE({
+                    element: document.querySelector('#id_markdown_input'),
+                    spellChecker: false,
+                    status: false,
+                    toolbar: [
+                        'bold', 'italic', 'heading', '|',
+                        'quote', 'unordered-list', 'ordered-list', '|',
+                        'link', 'image', 'code', 'table', '|',
+                        'preview', 'side-by-side', 'fullscreen'
+                    ],
+                    renderingConfig: {
+                        codeSyntaxHighlighting: true
+                    }
+                });
+
+                simplemde.codemirror.on('change', function() {
+                    setTimeout(function() {
+                        MathJax.typesetPromise();
+                    }, 100);
+                });
+            }
+        });
+    </script>
+    {% endblock %}
 
 </body>
 

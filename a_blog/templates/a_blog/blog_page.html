@@ -4,24 +4,39 @@
 
 {% block class %}blog bg-black text-white{% endblock %}
 
-{% block content %} 
+{% block content %}
 
     <div class="max-w-[1600px] mx-auto px-8 py-24">
-    
+
     <div class="flex justify-center pb-6">
     <form action="{%   url 'article_search' %}" method="get" class="relative w-full lg:w-2/3">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" 
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                 class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white">
             <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd" />
         </svg>
-        <input 
-            type="text" 
-            name="query" 
-            class="pl-12 pr-4 py-4 w-full m-auto border-gray-300 rounded-full bg-zinc-800 text-zinc-200 placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500" 
-            placeholder="Search articles ..." 
+        <input
+            type="text"
+            name="query"
+            class="pl-12 pr-4 py-4 w-full m-auto border-gray-300 rounded-full bg-zinc-800 text-zinc-200 placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500"
+            placeholder="Search articles ..."
         >
     </form>
 </div>
+    
+        <div class="mb-8">
+        <div class="flex flex-wrap gap-2">
+            <a href="?category=" 
+               class="px-4 py-2 rounded-full {% if not current_category %}bg-blue-100 text-blue-800{% else %}bg-blue-300{% endif %}">
+                All
+            </a>
+            {% for category in categories %}
+            <a href="?category={{ category.slug }}" 
+               class="px-4 py-2 rounded-full {% if current_category == category.slug %}bg-blue-100 text-blue-800{% else %}bg-blue-300{% endif %}">
+                {{ category.name }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
 
 {#        <h1>{{ page.title }}/h1>#}
 {#        <p>{{ page.body|richtext }}</p>#}
@@ -30,21 +45,21 @@
        Articles tagged "{{ tag }}"
   </div>
 {% endif %}
-    
+
     {% if articles %}
         <div class="grid mt-8 gap-12 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {% for article in articles %}
-            <article class="relative rounded-2xl border border-gray-500 hover:border-gray-400 bg-neutral-900 ">  
+            <article class="relative rounded-2xl border border-gray-500 hover:border-gray-400 bg-neutral-900 ">
                 <a href="{% pageurl article %}" class="flex flex-col justify-between h-full p-4">
                     <div>
                         <h2>{{ article.title }}</h2>
                         <p>{{ article.specific.intro }}</p>
                     </div>
                     <div>
-                        
+
                         <div class="flex justify-between items-center">
                         <p class="text-sm text-neutral-500">{{ article.specific.date }}</p>
-                        
+
                         <p class="flex items-center text-neutral-500 text-sm gap-1">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
@@ -53,17 +68,17 @@
                             <span>{{ article.specific.views }}</span>
                         </p>
                         </div>
-                        
+
                         <figure class="mb-4">
                         {% image article.specific.image fill-314x166 class="w-full rounded-lg" %}
                         </figure>
                         <span class="hover:underline">Read more</span>
                     </div>
                 </a>
-            </article> 
+            </article>
             {% endfor %}
-      
-            
+
+
         </div>
     {% else %}
     <div class="text-center text-neutral-400">

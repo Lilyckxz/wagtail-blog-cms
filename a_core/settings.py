@@ -58,6 +58,8 @@ INSTALLED_APPS = [
     'wagtail',
     'modelcluster',
     'taggit',
+    'wagtailmarkdown',
+
 
     # My apps
     'a_home',
