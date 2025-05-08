@@ -1,0 +1,30 @@
+{% extends 'layouts/blank.html' %}
+
+{% block content %}
+
+<div class="max-w-lg mx-auto flex flex-col items-center pt-20 px-4">
+    <img class="w-36 h-36 rounded-full object-cover mb-4" src="{{ profile.avatar }}" />
+    <div class="text-center">
+        <h1>{{ profile.name }}</h1>
+        <div class="text-gray-400 mb-2 -mt-3">@{{ profile.user.username }}</div>
+        {% if profile.info %}
+        <div class="mt-8 hyphens-auto">{{ profile.info|linebreaksbr }}</div>
+        {% endif %}
+        <h2>订阅状态</h2>
+        {% if profile.is_subscribed %}
+            <p>您是 VIP 会员，有效期至 {{ profile.subscription_end_date }}</p>
+            <a href="{% url 'a_order:create_subscription_order' %}" class="btn btn-primary">续费会员</a>
+        {% else %}
+            <p>您尚未订阅 VIP 服务。</p>
+            <a href="{% url 'a_order:create_subscription_order' %}" class="btn btn-primary">立即订阅</a>
+        {% endif %}  
+        <div class="text-center">
+            <h2>积分</h2>
+            <p>当前积分：{{ profile.points }}</p>
+            <a href="{% url 'a_points:points_records' %}" class="btn btn-primary">查看积分记录</a>
+            <a href="{% url 'a_order:create_recharge_order' %}" class="btn btn-secondary">充值积分</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

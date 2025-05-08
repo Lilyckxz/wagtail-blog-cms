@@ -1,0 +1,26 @@
+{% extends 'layouts/blank.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会员订阅</title>
+</head>
+<body>
+    <h1>会员订阅</h1>
+    <form method="POST" action="{% url 'a_order:create_subscription_order' %}">
+        {% csrf_token %}
+        <label for="subscription_period">订阅周期：</label>
+        <select id="subscription_period" name="subscription_period">
+            <option value="monthly">月度订阅</option>
+            <option value="quarterly">季度订阅</option>
+            <option value="yearly">年度订阅</option>
+        </select>
+        <br>
+        <button type="submit">提交订单</button>
+    </form>
+</body>
+</html>
+{% endblock %}

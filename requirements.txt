@@ -1,0 +1,7 @@
+Django>=5.1,<5.2
+pillow
+django-cleanup
+django-allauth
+django-htmx
+wagtail
+python-alipay-sdk
